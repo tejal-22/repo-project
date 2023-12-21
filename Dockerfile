@@ -1,5 +1,13 @@
 FROM centos:latest
 MAINTAINER sanjanadhtrak@gmail.com
+RUN yum makecache
+RUN yum -y makecache && \
+    yum -y install httpd zip unzip
+RUN sed -i 's/^metalink/#metalink/g' /etc/yum.repos.d/CentOS-*.repo && \
+    sed -i 's/^#baseurl/baseurl/g' /etc/yum.repos.d/CentOS-*.repo && \
+    sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*.repo && \
+    sed -i 's/^#baseurl/baseurl/g' /etc/yum.repos.d/CentOS-*.repo && \
+    sed -i 's/mirror.centos.org/mirror.centos.org/g' /etc/yum.repos.d/CentOS-*.repo
 RUN yum install -y httpd \
 zip \
 unzip
